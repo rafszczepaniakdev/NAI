@@ -1,4 +1,4 @@
-package com.szczepaniak;
+package com.szczepaniak.nai;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -1,4 +1,4 @@
-package com.szczepaniak.controller;
+package com.szczepaniak.nai.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
