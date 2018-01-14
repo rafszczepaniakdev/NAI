@@ -36,7 +36,6 @@ public class PersonController {
 	private ModelMapper modelMapper;
 
 	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
 	public ModelAndView getPersons(ModelAndView mav) {
 		List<Person> persons = personService.getPersons(0, 10);
 		List<PersonDto> dtoPersons = persons.stream().map(p -> convertToDto(p)).collect(Collectors.toList());
@@ -76,7 +75,6 @@ public class PersonController {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
-	@ResponseBody
 	public ModelAndView deletePerson(@RequestParam(value = "id", required = true) Long id, ModelAndView mav) {
 		personService.removePerson(id);
 		List<Person> persons = personService.getPersons(0, 10);
@@ -92,13 +90,6 @@ public class PersonController {
 
 	private Person convertToEntity(PersonDto personDto) throws ParseException {
 		return modelMapper.map(personDto, Person.class);
-	}
-
-	@RequestMapping(value = "/persons", method = RequestMethod.GET)
-	public String listPersons(Model model) {
-		model.addAttribute("person", new Person());
-		model.addAttribute("persons", personService.getPersons(0, 10));
-		return "persons";
 	}
 
 }
