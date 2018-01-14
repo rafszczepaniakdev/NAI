@@ -66,7 +66,6 @@ public class PersonController {
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public ModelAndView createPerson(@ModelAttribute PersonDto personDto, ModelAndView mav) {
 		personService.createPerson(convertToEntity(personDto));
-		personDto.getAddresses().forEach(a -> System.out.println("JEST"));
 		List<Person> persons = personService.getPersons(0, 10);
 		persons.stream().map(p -> convertToDto(p)).collect(Collectors.toList());
 		mav.setViewName("person");
