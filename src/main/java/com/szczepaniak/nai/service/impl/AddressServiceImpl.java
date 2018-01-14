@@ -29,7 +29,10 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public void removeAddress(Long personId, Long addressId) {
 		Person p = personRepository.getOne(personId);
-		p.getAddresses().removeIf(a -> a.getId().equals(addressId));
+		if(p.getAddresses().size()>1)
+			p.getAddresses().removeIf(a -> a.getId().equals(addressId));
+		else
+			p.getAddresses().clear();
 		personRepository.save(p);
 	}
 

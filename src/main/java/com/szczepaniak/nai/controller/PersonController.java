@@ -1,5 +1,6 @@
 package com.szczepaniak.nai.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.szczepaniak.nai.domain.Country;
 import com.szczepaniak.nai.domain.Person;
 import com.szczepaniak.nai.dto.PersonDto;
 import com.szczepaniak.nai.repository.PersonRepository;
@@ -35,9 +37,8 @@ public class PersonController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView getPersons(@RequestParam(value = "page", required = true) int page,
-			@RequestParam(value = "size", required = true) int size, ModelAndView mav) {
-		List<Person> persons = personService.getPersons(page, size);
+	public ModelAndView getPersons(ModelAndView mav) {
+		List<Person> persons = personService.getPersons(0, 10);
 		List<PersonDto> dtoPersons = persons.stream().map(p -> convertToDto(p)).collect(Collectors.toList());
 		mav.setViewName("person");
 		mav.addObject("persons", dtoPersons);

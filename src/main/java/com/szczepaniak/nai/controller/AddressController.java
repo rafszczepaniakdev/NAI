@@ -40,18 +40,14 @@ public class AddressController {
 		Person person = personService.getPerson(id);
 		Address address = convertAddressToEntity(addressDto);
 		addressService.addAddress(person, address);
-		mav.setViewName("editPerson");
-		mav.addObject("persons", convertToDto(personService.getPerson(id)));
-		return mav;
+		return new ModelAndView("redirect:/person/"+id);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
 	public ModelAndView deleteAddress(@RequestParam(value = "addressId", required = true) Long addressId,
 			@RequestParam(value = "personId", required = true) Long personId, ModelAndView mav) {
 		addressService.removeAddress(personId, addressId);
-		mav.setViewName("editPerson");
-		mav.addObject("person", convertToDto(personService.getPerson(personId)));
-		return mav;
+		return new ModelAndView("redirect:/person/"+personId);
 	}
 
 	public PersonDto convertToDto(Person person) {

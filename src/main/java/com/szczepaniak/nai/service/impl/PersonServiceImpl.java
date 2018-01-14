@@ -19,7 +19,6 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public Person createPerson(Person person) {
-		person.getAddresses().forEach(a->a.setPerson(person));
 		return personRepository.save(person);
 	}
 
@@ -39,9 +38,6 @@ public class PersonServiceImpl implements PersonService {
 	public Person updatePerson(Person person) {
 		Person oldPerson = personRepository.findOne(person.getId());
 		oldPerson.setName(person.getName());
-		oldPerson.getAddresses().clear();
-		oldPerson.getAddresses().addAll(person.getAddresses());
-		oldPerson.getAddresses().forEach(a->a.setPerson(person));
 		return personRepository.save(oldPerson);
 	}
 
