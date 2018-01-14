@@ -1,16 +1,19 @@
 package com.szczepaniak.nai.domain;
 
-import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
 public class Person {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -18,8 +21,8 @@ public class Person {
 	@NotNull
 	private String name;
 
-	@NotNull
-	private LocalDate birthDate;
+	@OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Address> addresses;
 
 	public Long getId() {
 		return id;
@@ -37,12 +40,12 @@ public class Person {
 		this.name = name;
 	}
 
-	public LocalDate getBirthDate() {
-		return birthDate;
+	public List<Address> getAddresses() {
+		return addresses;
 	}
 
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 
 }

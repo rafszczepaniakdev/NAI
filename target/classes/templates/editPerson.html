@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Hello World!</title>
+</head>
+<body>
+	<h2>Edit person</h2>
+	<div style="width: 50%">
+		<form th:action="@{/person/}+ ${person.id}" th:object="${person}"
+			th:method="put">
+			<div>
+				<label> Username : <input type="text" name="name"
+					th:value="${person.name}" />
+				</label>
+			</div>
+			<table border="0">
+				<tr th:each="address : ${person.addresses}">
+					<td th:text="${address.country}" style="padding: 5px"></td>
+					<td th:text="${address.postalCode}" style="padding: 5px"></td>
+					<td th:text="${address.city}" style="padding: 5px"></td>
+					<td th:text="${address.street}" style="padding: 5px"></td>
+					<td th:text="${address.houseNo}" style="padding: 5px"></td>
+					
+					<td>
+						<form th:action="@{/address(addressId=${address.id},personId=${person.id})}"
+							th:method="delete" th:object="${address}">
+							<button name="remove">Remove</button>
+						</form>
+					</td>
+				</tr>
+			</table>
+			<div>
+				<input type="submit" value="Edit" />
+			</div>
+
+		</form>
+	</div>
+	<div style="width: 50%">
+		<form th:action="@{/address/}+ ${person.id}" th:object="${address}"
+			th:method="put">
+			<div>
+				<label> Street : <input type="text" name="street" />
+				</label>
+			</div>
+			<div>
+				<input type="submit" value="Add address" />
+			</div>
+
+		</form>
+	</div>
+</body>
+</html>
