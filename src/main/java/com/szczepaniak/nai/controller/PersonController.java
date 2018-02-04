@@ -52,7 +52,7 @@ public class PersonController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	public ModelAndView updatePerson(@ModelAttribute PersonDto personDto, ModelAndView mav) {
 		Person person = convertToEntity(personDto);
 		personService.updatePerson(person);
@@ -73,7 +73,7 @@ public class PersonController {
 		return mav;
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE)
+	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	public ModelAndView deletePerson(@RequestParam(value = "id", required = true) Long id, ModelAndView mav) {
 		personService.removePerson(id);
 		List<Person> persons = personService.getPersons(0, 10);

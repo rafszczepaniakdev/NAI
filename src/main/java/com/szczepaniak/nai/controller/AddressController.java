@@ -35,7 +35,7 @@ public class AddressController {
 	@Autowired
 	private AddressService addressService;
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public ModelAndView addAddress(@PathVariable("id") Long id, @ModelAttribute AddressDto addressDto, ModelAndView mav) {
 		Person person = personService.getPerson(id);
 		Address address = convertAddressToEntity(addressDto);
@@ -43,7 +43,7 @@ public class AddressController {
 		return new ModelAndView("redirect:/person/"+id);
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE)
+	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	public ModelAndView deleteAddress(@RequestParam(value = "addressId", required = true) Long addressId,
 			@RequestParam(value = "personId", required = true) Long personId, ModelAndView mav) {
 		addressService.removeAddress(personId, addressId);
