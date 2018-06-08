@@ -1,0 +1,1 @@
+INSERT INTO `nai`.`person` (`name`) VALUES ('FlyWay');

@@ -4,8 +4,32 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <title>Hello World!</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+	
+</script>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$("#locales").change(
+						function() {
+							var selectedOption = $('#locales').val();
+							if (selectedOption != '') {
+								window.location.replace('login?lang='
+										+ selectedOption);
+							}
+						});
+			});
+</script>
 </head>
 <body>
+	<span th:text="#{lang.change}"></span>:
+	<select id="locales">
+		<option value=""></option>
+		<option value="en" th:text="#{lang.eng}"></option>
+		<option value="pl" th:text="#{lang.pl}"></option>
+	</select>
+
 	<table border="0">
 		<tr th:each="person : ${persons}">
 			<td th:text="${person.id}" style="padding: 5px"></td>
@@ -24,29 +48,29 @@
 			<td>
 				<form th:action="@{/person/} + ${person.id}" th:method="get"
 					th:object="${person}">
-					<button name="edit">Edit</button>
+					<button name="edit" th:text="#{button.edit}"></button>
 				</form>
 				<form th:action="@{/person?id=} + ${person.id}" th:method="delete"
 					th:object="${person}">
-					<button name="remove">Remove</button>
+					<button name="remove" th:text="#{button.remove}"></button>
 				</form>
 			</td>
 		</tr>
 	</table>
 
-	<h2>Create person</h2>
+	<h2 th:text="#{header.createPerson}"></h2>
 	<form th:action="@{/person}" th:object="${newPerson}" method="post">
 		<div>
-			<label> Username : <input type="text" name="name" />
-			</label>
+			<label th:text="#{user.username}"></label>
+			<input type="text" name="name" />
 		</div>
 		<div>
-			<input type="submit" value="Create" />
+			<input type="submit" th:value="#{button.create}" />
 		</div>
 	</form>
 
 	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Sign Out" />
+		<input type="submit" th:value="#{button.signout}" />
 	</form>
 </body>
 </html>

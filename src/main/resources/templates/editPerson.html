@@ -7,19 +7,18 @@
 </head>
 <body>
 	<form th:action="@{/person}" th:method="get">
-		<button name="back">Back</button>
+		<button name="back" th:text="#{button.back}"></button>
 	</form>
-	<h2>Edit person</h2>
+	<h2 th:text="#{header.editPerson}"></h2>
 	<div style="width: 50%">
 		<form th:action="@{/person/}+ ${person.id}" th:object="${person}"
 			th:method="put">
 			<div>
-				<label> Username : <input type="text" name="name"
-					th:value="${person.name}" />
-				</label>
+				<label th:text="#{user.username}"></label> <input type="text"
+					name="name" th:value="${person.name}" />
 			</div>
 			<div>
-				<input type="submit" value="Edit" />
+				<input type="submit" th:value="#{button.edit}" />
 			</div>
 		</form>
 		<table border="0">
@@ -34,7 +33,7 @@
 					<form
 						th:action="@{/address(addressId=${address.id},personId=${person.id})}"
 						th:method="delete" th:object="${address}">
-						<button name="remove">Remove</button>
+						<button name="remove" th:text="#{button.remove}"></button>
 					</form>
 				</td>
 			</tr>
@@ -44,17 +43,21 @@
 	</div>
 	<div style="width: 50%">
 		<form th:action="@{/address/}+ ${person.id}" th:object="${address}"
-			th:method="put">
+			th:method="post">
 			<div>
-				<label> Country : <input type="text" name="country" />
-				</label> <label> Postal Code : <input type="text" name="postalCode" />
-				</label> <label> City : <input type="text" name="city" />
-				</label> <label> Street : <input type="text" name="street" />
-				</label> <label> House No : <input type="text" name="houseNo" />
-				</label>
+				<label th:text="#{user.country}"></label> 
+				<input type="text" name="country"/> 
+				<label th:text="#{user.postalCode}"></label> 
+				<input type="text" name="postalCode"/> 
+				<label th:text="#{user.city}"></label> 
+				<input type="text" name="city" /> 
+				<label th:text="#{user.street}"></label> 
+				<input type="text" name="street" /> 
+				<label th:text="#{user.houseNo}"></label> 
+				<input type="text" name="houseNo" />
 			</div>
 			<div>
-				<input type="submit" value="Add address" />
+				<input type="submit" th:value="#{button.addAddress}" />
 			</div>
 
 		</form>
